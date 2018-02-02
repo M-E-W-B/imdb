@@ -13,34 +13,24 @@ module.exports = router => {
 
     const user = new User(obj);
 
-    user.save((err, user) => {
-      if (err) throw err;
-      res.json(user);
-    });
+    user.save().then(user => res.json(user));
   });
 
   router.delete("/user/:id", (req, res) => {
     const userId = req.params.id;
 
-    User.remove({ _id: userId }, err => {
-      if (err) throw err;
-      res.json({ message: `User ${userId} deleted.` });
-    });
+    User.remove({ _id: userId }).then(() =>
+      res.json({ message: `User ${userId} deleted.` })
+    );
   });
 
   router.get("/user/:id", (req, res) => {
     const userId = req.params.id;
 
-    User.findById(userId, (err, user) => {
-      if (err) throw err;
-      res.json(user);
-    });
+    User.findById(userId).then(user => res.json(user));
   });
 
   router.get("/user", (req, res) => {
-    User.find({}, (err, users) => {
-      if (err) throw err;
-      res.json(users);
-    });
+    User.find({}).then(users => res.json(users));
   });
 };
