@@ -1,0 +1,23 @@
+{
+  "name": "imdb",
+  "version": "1.0.0",
+  "description": "simple backend for imdb",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "keywords": ["imdb", "expressjs", "nodejs", "mongodb"],
+  "author": "kshirish",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.2",
+    "express-session": "^1.15.6",
+    "jsonwebtoken": "^8.1.1",
+    "lodash": "^4.17.4",
+    "method-override": "^2.3.10",
+    "mongoose": "^5.0.3"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "secret": "what's the rumpus",
+  "database": "mongodb://localhost:27017/imdb",
+  "options": {
+    "autoIndex": false,
+    "poolSize": 10,
+    "bufferMaxEntries": 0
+  }
+}
