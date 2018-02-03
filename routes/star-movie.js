@@ -23,18 +23,6 @@ module.exports = router => {
     StarMovie.findById(starMovieId).then(starMovie => res.json(starMovie));
   });
 
-  // router.get("/star-movie/:id/full", (req, res) => {
-  //   const starMovieId = req.params.id;
-  //
-  //   StarMovie.findOne({ _id: starMovieId })
-  //     .populate("starId")
-  //     .populate("movieId")
-  //     .exec(function(err, starMovie) {
-  //       if (err) throw err;
-  //       res.json(starMovie);
-  //     });
-  // });
-
   router.get("/star-movie", (req, res) => {
     StarMovie.find({}).then(starMovies => res.json(starMovies));
   });

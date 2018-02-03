@@ -36,7 +36,40 @@ module.exports = router => {
   router.get("/movie/:id/full", (req, res) => {
     const movieId = req.params.id;
 
-    Promise.all([Movie.findById(movieId)]).then(movie => res.json(movie));
+    const starMovies = StarMovie.find({ movieId }).populate("starId");
+    const movie = Movie.findById(movieId);
+
+    Promise.all([starMovies, movie]).then(([starMovies, movie]) => {
+      const stars = starMovies.map(starMovie => starMovie.starId);
+      let [directors, writers, cast, soundtrack, cinematographer] = Array(
+        5
+      ).fill([]);
+
+      stars.forEach(star => {
+        if (star.profession.indexOf("Director") !== -1)
+          directors = directors.concat(star);
+
+        if (star.profession.indexOf("Writer") !== -1)
+          writers = writers.concat(star);
+
+        if (star.profession.indexOf("Actor") !== -1) cast = cast.concat(star);
+
+        if (star.profession.indexOf("Soundtrack") !== -1)
+          soundtrack = soundtrack.concat(star);
+
+        if (star.profession.indexOf("Cinematographer") !== -1)
+          cinematographer = cinematographer.concat(star);
+      });
+
+      res.json({
+        ...movie._doc,
+        directors,
+        writers,
+        cast,
+        soundtrack,
+        cinematographer
+      });
+    });
   });
 
   router.get("/movie", (req, res) => {
