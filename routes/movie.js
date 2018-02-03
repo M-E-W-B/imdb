@@ -1,6 +1,5 @@
 const Movie = require("../models/movie");
 const StarMovie = require("../models/star-movie");
-
 const pick = require("lodash/pick");
 
 module.exports = router => {
