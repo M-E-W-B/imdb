@@ -25,6 +25,12 @@ module.exports = router => {
   });
 
   router.get("/award", (req, res) => {
-    Award.find({}).then(awards => res.json(awards));
+    const page = req.query.page ? +req.query.page : 1;
+    const limit = req.query.limit ? +req.query.limit : 10;
+
+    Award.find({})
+      .skip(limit * page - limit)
+      .limit(limit)
+      .then(awards => res.json(awards));
   });
 };

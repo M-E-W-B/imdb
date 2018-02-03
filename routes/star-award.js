@@ -24,6 +24,12 @@ module.exports = router => {
   });
 
   router.get("/star-award", (req, res) => {
-    StarAward.find({}).then(starAwards => res.json(starAwards));
+    const page = req.query.page ? +req.query.page : 1;
+    const limit = req.query.limit ? +req.query.limit : 10;
+
+    StarAward.find({})
+      .skip(limit * page - limit)
+      .limit(limit)
+      .then(starAwards => res.json(starAwards));
   });
 };

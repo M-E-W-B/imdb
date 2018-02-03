@@ -31,6 +31,12 @@ module.exports = router => {
   });
 
   router.get("/user", (req, res) => {
-    User.find({}).then(users => res.json(users));
+    const page = req.query.page ? +req.query.page : 1;
+    const limit = req.query.limit ? +req.query.limit : 10;
+
+    User.find({})
+      .skip(limit * page - limit)
+      .limit(limit)
+      .then(users => res.json(users));
   });
 };

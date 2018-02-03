@@ -24,6 +24,12 @@ module.exports = router => {
   });
 
   router.get("/star-movie", (req, res) => {
-    StarMovie.find({}).then(starMovies => res.json(starMovies));
+    const page = req.query.page ? +req.query.page : 1;
+    const limit = req.query.limit ? +req.query.limit : 10;
+
+    StarMovie.find({})
+      .skip(limit * page - limit)
+      .limit(limit)
+      .then(starMovies => res.json(starMovies));
   });
 };

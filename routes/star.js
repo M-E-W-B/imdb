@@ -54,6 +54,12 @@ module.exports = router => {
   });
 
   router.get("/star", (req, res) => {
-    Star.find({}).then(stars => res.json(stars));
+    const page = req.query.page ? +req.query.page : 1;
+    const limit = req.query.limit ? +req.query.limit : 10;
+
+    Star.find({})
+      .skip(limit * page - limit)
+      .limit(limit)
+      .then(stars => res.json(stars));
   });
 };

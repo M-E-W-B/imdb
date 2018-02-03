@@ -72,6 +72,12 @@ module.exports = router => {
   });
 
   router.get("/movie", (req, res) => {
-    Movie.find({}).then(movies => res.json(movies));
+    const page = req.query.page ? +req.query.page : 1;
+    const limit = req.query.limit ? +req.query.limit : 10;
+
+    Movie.find({})
+      .skip(limit * page - limit)
+      .limit(limit)
+      .then(movies => res.json(movies));
   });
 };
