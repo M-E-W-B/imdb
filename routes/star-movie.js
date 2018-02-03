@@ -6,21 +6,26 @@ module.exports = router => {
     const { movieId, starId } = req.params;
     const starMovie = new StarMovie({ movieId, starId });
 
-    starMovie.save(starMovie => res.json(starMovie));
+    starMovie
+      .save()
+      .then(starMovie => res.json(starMovie))
+      .catch(next);
   });
 
   router.delete("/star-movie/:id", (req, res) => {
     const starMovieId = req.params.id;
 
-    StarMovie.remove({ _id: starMovieId }).then(() =>
-      res.json({ message: `StarMovie ${starMovieId} deleted.` })
-    );
+    StarMovie.remove({ _id: starMovieId })
+      .then(() => res.json({ message: `StarMovie ${starMovieId} deleted.` }))
+      .catch(next);
   });
 
   router.get("/star-movie/:id", (req, res) => {
     const starMovieId = req.params.id;
 
-    StarMovie.findById(starMovieId).then(starMovie => res.json(starMovie));
+    StarMovie.findById(starMovieId)
+      .then(starMovie => res.json(starMovie))
+      .catch(next);
   });
 
   router.get("/star-movie", (req, res) => {
@@ -30,6 +35,7 @@ module.exports = router => {
     StarMovie.find({})
       .skip(limit * page - limit)
       .limit(limit)
-      .then(starMovies => res.json(starMovies));
+      .then(starMovies => res.json(starMovies))
+      .catch(next);
   });
 };

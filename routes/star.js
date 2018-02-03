@@ -16,21 +16,26 @@ module.exports = router => {
 
     const star = new Star(obj);
 
-    star.save().then(star => res.json(star));
+    star
+      .save()
+      .then(star => res.json(star))
+      .catch(next);
   });
 
   router.delete("/star/:id", (req, res) => {
     const starId = req.params.id;
 
-    Star.remove({ _id: starId }).then(() =>
-      res.json({ message: `Star ${starId} deleted.` })
-    );
+    Star.remove({ _id: starId })
+      .then(() => res.json({ message: `Star ${starId} deleted.` }))
+      .catch(next);
   });
 
   router.get("/star/:id", (req, res) => {
     const starId = req.params.id;
 
-    Star.findById(starId).then(star => res.json(star));
+    Star.findById(starId)
+      .then(star => res.json(star))
+      .catch(next);
   });
 
   router.get("/star/:id/movie", (req, res) => {
@@ -40,7 +45,8 @@ module.exports = router => {
       .populate("movieId")
       .then(starMovies => {
         res.json(starMovies.map(starMovie => starMovie.movieId));
-      });
+      })
+      .catch(next);
   });
 
   router.get("/star/:id/award", (req, res) => {
@@ -50,7 +56,8 @@ module.exports = router => {
       .populate("awardId")
       .then(starAwards => {
         res.json(starAwards.map(starAward => starAward.awardId));
-      });
+      })
+      .catch(next);
   });
 
   router.get("/star", (req, res) => {
@@ -60,6 +67,7 @@ module.exports = router => {
     Star.find({})
       .skip(limit * page - limit)
       .limit(limit)
-      .then(stars => res.json(stars));
+      .then(stars => res.json(stars))
+      .catch(next);
   });
 };

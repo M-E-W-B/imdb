@@ -15,21 +15,26 @@ module.exports = router => {
 
     const movie = new Movie(obj);
 
-    movie.save().then(movie => res.json(movie));
+    movie
+      .save()
+      .then(movie => res.json(movie))
+      .catch(next);
   });
 
   router.delete("/movie/:id", (req, res) => {
     const movieId = req.params.id;
 
-    Movie.remove({ _id: movieId }).then(() =>
-      res.json({ message: `Movie ${movieId} deleted.` })
-    );
+    Movie.remove({ _id: movieId })
+      .then(() => res.json({ message: `Movie ${movieId} deleted.` }))
+      .catch(next);
   });
 
   router.get("/movie/:id", (req, res) => {
     const movieId = req.params.id;
 
-    Movie.findById(movieId).then(movie => res.json(movie));
+    Movie.findById(movieId)
+      .then(movie => res.json(movie))
+      .catch(next);
   });
 
   router.get("/movie/:id/full", (req, res) => {
@@ -44,21 +49,23 @@ module.exports = router => {
         5
       ).fill([]);
 
-      stars.forEach(star => {
-        if (star.profession.indexOf("Director") !== -1)
-          directors = directors.concat(star);
+      stars
+        .forEach(star => {
+          if (star.profession.indexOf("Director") !== -1)
+            directors = directors.concat(star);
 
-        if (star.profession.indexOf("Writer") !== -1)
-          writers = writers.concat(star);
+          if (star.profession.indexOf("Writer") !== -1)
+            writers = writers.concat(star);
 
-        if (star.profession.indexOf("Actor") !== -1) cast = cast.concat(star);
+          if (star.profession.indexOf("Actor") !== -1) cast = cast.concat(star);
 
-        if (star.profession.indexOf("Soundtrack") !== -1)
-          soundtrack = soundtrack.concat(star);
+          if (star.profession.indexOf("Soundtrack") !== -1)
+            soundtrack = soundtrack.concat(star);
 
-        if (star.profession.indexOf("Cinematographer") !== -1)
-          cinematographer = cinematographer.concat(star);
-      });
+          if (star.profession.indexOf("Cinematographer") !== -1)
+            cinematographer = cinematographer.concat(star);
+        })
+        .catch(next);
 
       res.json({
         ...movie._doc,
@@ -78,6 +85,7 @@ module.exports = router => {
     Movie.find({})
       .skip(limit * page - limit)
       .limit(limit)
-      .then(movies => res.json(movies));
+      .then(movies => res.json(movies))
+      .catch(next);
   });
 };

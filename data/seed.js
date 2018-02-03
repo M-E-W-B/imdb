@@ -1913,3 +1913,171 @@ db.stars.insert([
     gender: "Male"
   }
 ]);
+
+// drop the existing
+// insert then
+db.awards.drop();
+db.awards.insert([
+  {
+    name: "British Academy Film Awards",
+    year: 2017,
+    category: "Best Director"
+  },
+  {
+    name: "British Academy Film Awards",
+    year: 2017,
+    category: "Best Original Score"
+  },
+  {
+    name: "British Academy Film Awards",
+    year: 2017,
+    category: "Best Cinematography"
+  },
+  {
+    name: "British Academy Film Awards",
+    year: 2017,
+    category: "Best Adapted Screenplay"
+  },
+  {
+    name: "British Academy Film Awards",
+    year: 2017,
+    category: "Best Original Screenplay"
+  },
+  {
+    name: "British Academy Film Awards",
+    year: 2017,
+    category: "Best Supporting Actress"
+  },
+  {
+    name: "British Academy Film Awards",
+    year: 2017,
+    category: "Best Supporting Actor"
+  },
+  {
+    name: "British Academy Film Awards",
+    year: 2017,
+    category: "Best Actress"
+  },
+  {
+    name: "British Academy Film Awards",
+    year: 2017,
+    category: "Best Actor"
+  },
+  {
+    name: "Palme d'Or",
+    year: 2017,
+    category: "Best Director"
+  },
+  {
+    name: "Palme d'Or",
+    year: 2017,
+    category: "Best Original Score"
+  },
+  {
+    name: "Palme d'Or",
+    year: 2017,
+    category: "Best Cinematography"
+  },
+  {
+    name: "Palme d'Or",
+    year: 2017,
+    category: "Best Adapted Screenplay"
+  },
+  {
+    name: "Palme d'Or",
+    year: 2017,
+    category: "Best Original Screenplay"
+  },
+  {
+    name: "Palme d'Or",
+    year: 2017,
+    category: "Best Supporting Actress"
+  },
+  {
+    name: "Palme d'Or",
+    year: 2017,
+    category: "Best Supporting Actor"
+  },
+  {
+    name: "Palme d'Or",
+    year: 2017,
+    category: "Best Actress"
+  },
+  {
+    name: "Palme d'Or",
+    year: 2017,
+    category: "Best Actor"
+  },
+  {
+    name: "Academy Awards",
+    year: 2017,
+    category: "Best Director"
+  },
+  {
+    name: "Academy Awards",
+    year: 2017,
+    category: "Best Original Score"
+  },
+  {
+    name: "Academy Awards",
+    year: 2017,
+    category: "Best Cinematography"
+  },
+  {
+    name: "Academy Awards",
+    year: 2017,
+    category: "Best Adapted Screenplay"
+  },
+  {
+    name: "Academy Awards",
+    year: 2017,
+    category: "Best Original Screenplay"
+  },
+  {
+    name: "Academy Awards",
+    year: 2017,
+    category: "Best Supporting Actress"
+  },
+  {
+    name: "Academy Awards",
+    year: 2017,
+    category: "Best Supporting Actor"
+  },
+  {
+    name: "Academy Awards",
+    year: 2017,
+    category: "Best Actress"
+  },
+  {
+    name: "Academy Awards",
+    year: 2017,
+    category: "Best Actor"
+  }
+]);
+
+// drop the existing
+// insert then
+db.users.drop();
+db.users.insert([
+  {
+    firstName: "Kisley",
+    lastName: "Shirish",
+    password: "$2a$08$ExIcbgf1ijNMKMtlDLD5j.e.VK4htNyZjJYb4nD6Om9ujm.PjWUeu",
+    phoneNumber: 8796678632,
+    email: "kisley@gmail.com"
+  },
+  {
+    firstName: "Harish",
+    lastName: "Kulur",
+    password: "$2a$08$fMpWyTUiD39LIgujCYx42uBxGk433ylxthsuCyISRqfoynq78Qbcq",
+    phoneNumber: 8796698452,
+    email: "kulur@gmail.com"
+  },
+  {
+    firstName: "Syed",
+    lastName: "Fazal",
+    password: "$2a$08$SlkeBJHSVbZ2UJwglgzISuII4UMEgMopZm8/kCcNOeuxMVQnzNWhK",
+    phoneNumber: 7896698452,
+    email: "fazal@gmail.com"
+  }
+]);

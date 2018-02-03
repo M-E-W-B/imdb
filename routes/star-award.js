@@ -6,21 +6,26 @@ module.exports = router => {
     const { awardId, starId } = req.params;
     const starAward = new StarAward({ awardId, starId });
 
-    starAward.save(starAward => res.json(starAward));
+    starAward
+      .save()
+      .then(starAward => res.json(starAward))
+      .catch(next);
   });
 
   router.delete("/star-award/:id", (req, res) => {
     const starAwardId = req.params.id;
 
-    StarAward.remove({ _id: starAwardId }).then(() =>
-      res.json({ message: `StarAward ${starAwardId} deleted.` })
-    );
+    StarAward.remove({ _id: starAwardId })
+      .then(() => res.json({ message: `StarAward ${starAwardId} deleted.` }))
+      .catch(next);
   });
 
   router.get("/star-award/:id", (req, res) => {
     const starAwardId = req.params.id;
 
-    StarAward.findById(starAwardId).then(starAward => res.json(starAward));
+    StarAward.findById(starAwardId)
+      .then(starAward => res.json(starAward))
+      .catch(next);
   });
 
   router.get("/star-award", (req, res) => {
@@ -30,6 +35,7 @@ module.exports = router => {
     StarAward.find({})
       .skip(limit * page - limit)
       .limit(limit)
-      .then(starAwards => res.json(starAwards));
+      .then(starAwards => res.json(starAwards))
+      .catch(next);
   });
 };

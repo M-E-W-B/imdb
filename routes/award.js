@@ -7,21 +7,26 @@ module.exports = router => {
 
     const award = new Award(obj);
 
-    award.save().then(award => res.json(award));
+    award
+      .save()
+      .then(award => res.json(award))
+      .catch(next);
   });
 
   router.delete("/award/:id", (req, res) => {
     const awardId = req.params.id;
 
-    Award.remove({ _id: awardId }).then(() =>
-      res.json({ message: `Award ${awardId} deleted.` })
-    );
+    Award.remove({ _id: awardId })
+      .then(() => res.json({ message: `Award ${awardId} deleted.` }))
+      .catch(next);
   });
 
   router.get("/award/:id", (req, res) => {
     const awardId = req.params.id;
 
-    Award.findById(awardId).then(award => res.json(award));
+    Award.findById(awardId)
+      .then(award => res.json(award))
+      .catch(next);
   });
 
   router.get("/award", (req, res) => {
@@ -31,6 +36,7 @@ module.exports = router => {
     Award.find({})
       .skip(limit * page - limit)
       .limit(limit)
-      .then(awards => res.json(awards));
+      .then(awards => res.json(awards))
+      .catch(next);
   });
 };
