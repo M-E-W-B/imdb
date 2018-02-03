@@ -38,3 +38,6 @@ typings/
 
 # dotenv environment variables file
 .env
+
+# script to fetch data from themoviedb
+data/script.js

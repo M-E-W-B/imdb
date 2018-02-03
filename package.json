@@ -7,7 +7,12 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js"
   },
-  "keywords": ["imdb", "expressjs", "nodejs", "mongodb"],
+  "keywords": [
+    "imdb",
+    "expressjs",
+    "nodejs",
+    "mongodb"
+  ],
   "author": "kshirish",
   "license": "MIT",
   "dependencies": {
