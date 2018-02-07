@@ -2,7 +2,7 @@ const Award = require("../models/award");
 const pick = require("lodash/pick");
 
 module.exports = router => {
-  router.post("/award", (req, res) => {
+  router.post("/award", (req, res, next) => {
     const obj = pick(req.body, ["name", "year", "category"]);
 
     const award = new Award(obj);
@@ -13,7 +13,7 @@ module.exports = router => {
       .catch(next);
   });
 
-  router.delete("/award/:id", (req, res) => {
+  router.delete("/award/:id", (req, res, next) => {
     const awardId = req.params.id;
 
     Award.remove({ _id: awardId })
@@ -21,7 +21,7 @@ module.exports = router => {
       .catch(next);
   });
 
-  router.get("/award/:id", (req, res) => {
+  router.get("/award/:id", (req, res, next) => {
     const awardId = req.params.id;
 
     Award.findById(awardId)
@@ -29,11 +29,13 @@ module.exports = router => {
       .catch(next);
   });
 
-  router.get("/award", (req, res) => {
+  router.get("/award", (req, res, next) => {
     const page = req.query.page ? +req.query.page : 1;
     const limit = req.query.limit ? +req.query.limit : 10;
+    const sortOptions = req.query.sort ? { [req.query.sort]: 1 } : {};
 
     Award.find({})
+      .sort(sortOptions)
       .skip(limit * page - limit)
       .limit(limit)
       .then(awards => res.json(awards))

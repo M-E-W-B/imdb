@@ -1,5 +1,7 @@
 # Imdb
 
+![IMDB](https://static.amazon.jobs/teams/53/images/IMDb_Header_Page.jpg?1501027252)
+
 ### Fill up the database
 
 ```sh

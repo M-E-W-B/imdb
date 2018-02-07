@@ -4,7 +4,7 @@ const StarAward = require("../models/star-award");
 const pick = require("lodash/pick");
 
 module.exports = router => {
-  router.post("/star", (req, res) => {
+  router.post("/star", (req, res, next) => {
     const obj = pick(req.body, [
       "name",
       "bio",
@@ -22,7 +22,7 @@ module.exports = router => {
       .catch(next);
   });
 
-  router.delete("/star/:id", (req, res) => {
+  router.delete("/star/:id", (req, res, next) => {
     const starId = req.params.id;
 
     Star.remove({ _id: starId })
@@ -30,7 +30,7 @@ module.exports = router => {
       .catch(next);
   });
 
-  router.get("/star/:id", (req, res) => {
+  router.get("/star/:id", (req, res, next) => {
     const starId = req.params.id;
 
     Star.findById(starId)
@@ -38,7 +38,7 @@ module.exports = router => {
       .catch(next);
   });
 
-  router.get("/star/:id/movie", (req, res) => {
+  router.get("/star/:id/movie", (req, res, next) => {
     const starId = req.params.id;
 
     StarMovie.find({ starId })
@@ -49,7 +49,7 @@ module.exports = router => {
       .catch(next);
   });
 
-  router.get("/star/:id/award", (req, res) => {
+  router.get("/star/:id/award", (req, res, next) => {
     const starId = req.params.id;
 
     StarAward.find({ starId })
@@ -60,11 +60,12 @@ module.exports = router => {
       .catch(next);
   });
 
-  router.get("/star", (req, res) => {
+  router.get("/star", (req, res, next) => {
     const page = req.query.page ? +req.query.page : 1;
     const limit = req.query.limit ? +req.query.limit : 10;
-
+    const sortOptions = req.query.sort ? { [req.query.sort]: 1 } : {};
     Star.find({})
+      .sort(sortOptions)
       .skip(limit * page - limit)
       .limit(limit)
       .then(stars => res.json(stars))

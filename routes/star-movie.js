@@ -2,7 +2,7 @@ const StarMovie = require("../models/star-movie");
 const pick = require("lodash/pick");
 
 module.exports = router => {
-  router.post("/movie/:movieId/star/:starId", (req, res) => {
+  router.post("/movie/:movieId/star/:starId", (req, res, next) => {
     const { movieId, starId } = req.params;
     const starMovie = new StarMovie({ movieId, starId });
 
@@ -12,7 +12,7 @@ module.exports = router => {
       .catch(next);
   });
 
-  router.delete("/star-movie/:id", (req, res) => {
+  router.delete("/star-movie/:id", (req, res, next) => {
     const starMovieId = req.params.id;
 
     StarMovie.remove({ _id: starMovieId })
@@ -20,7 +20,7 @@ module.exports = router => {
       .catch(next);
   });
 
-  router.get("/star-movie/:id", (req, res) => {
+  router.get("/star-movie/:id", (req, res, next) => {
     const starMovieId = req.params.id;
 
     StarMovie.findById(starMovieId)
@@ -28,11 +28,13 @@ module.exports = router => {
       .catch(next);
   });
 
-  router.get("/star-movie", (req, res) => {
+  router.get("/star-movie", (req, res, next) => {
     const page = req.query.page ? +req.query.page : 1;
     const limit = req.query.limit ? +req.query.limit : 10;
+    const sortOptions = req.query.sort ? { [req.query.sort]: 1 } : {};
 
     StarMovie.find({})
+      .sort(sortOptions)
       .skip(limit * page - limit)
       .limit(limit)
       .then(starMovies => res.json(starMovies))

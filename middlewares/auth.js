@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const pick = require("lodash/pick");
 const config = require("../config");
 
-module.exports = (router, app) => {
+module.exports = router => {
   router.post("/authenticate", function(req, res) {
     User.findOne(
       {
@@ -21,7 +21,7 @@ module.exports = (router, app) => {
             const { _id, firstName, email } = user;
             const payload = { _id, firstName, email };
 
-            const token = jwt.sign(payload, config.superSecret, {
+            const token = jwt.sign(payload, config.secret, {
               expiresIn: 86400 // expires in 24 hours
             });
 
