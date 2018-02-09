@@ -3,6 +3,8 @@ const StarMovie = require("../models/star-movie");
 const StarAward = require("../models/star-award");
 const pick = require("lodash/pick");
 
+// @TODO: implement search for stars
+
 module.exports = router => {
   router.post("/star", (req, res, next) => {
     const obj = pick(req.body, [

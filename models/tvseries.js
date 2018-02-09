@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 // set up a mongoose model
 module.exports = mongoose.model(
-  "Movie",
+  "TvSeries",
   new Schema({
     name: {
       type: String,
@@ -13,12 +13,17 @@ module.exports = mongoose.model(
       type: String,
       default: "https://picsum.photos/200/300/?random"
     },
+    yearFrom: {
+      type: Number,
+      required: true
+    },
+    yearTo: {
+      type: Number
+    },
     plot: {
       type: String,
       required: true
     },
-    releaseDate: Date,
-    runtime: Number,
     genre: [
       {
         type: String,

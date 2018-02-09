@@ -2,12 +2,15 @@ const Movie = require("../models/movie");
 const StarMovie = require("../models/star-movie");
 const pick = require("lodash/pick");
 
+// @TODO: implement search for movies
+
 module.exports = router => {
   router.post("/movie", (req, res, next) => {
     const obj = pick(req.body, [
       "name",
       "genre",
       "plot",
+      "imageUrl",
       "releaseDate",
       "runtime",
       "rating"
