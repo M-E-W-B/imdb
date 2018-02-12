@@ -2,8 +2,6 @@ const Movie = require("../models/movie");
 const StarMovie = require("../models/star-movie");
 const pick = require("lodash/pick");
 
-// @TODO: implement search for movies
-
 module.exports = router => {
   router.post("/movie", (req, res, next) => {
     const obj = pick(req.body, [
@@ -84,9 +82,22 @@ module.exports = router => {
   router.get("/movie", (req, res, next) => {
     const page = req.query.page ? +req.query.page : 1;
     const limit = req.query.limit ? +req.query.limit : 10;
-    const sortOptions = req.query.sort ? { [req.query.sort]: 1 } : {};
+    let scoreObj = {};
+    let sortOptions = {};
+    let searchOptions = {};
 
-    Movie.find({})
+    if (req.query.search) {
+      sortOptions = scoreObj = { score: { $meta: "textScore" } };
+      searchOptions = {
+        $text: {
+          $search: req.query.search
+        }
+      };
+    } else if (req.query.sort) {
+      sortOptions = { [req.query.sort]: 1 };
+    }
+
+    Movie.find(searchOptions, scoreObj)
       .sort(sortOptions)
       .skip(limit * page - limit)
       .limit(limit)

@@ -3,8 +3,6 @@ const StarMovie = require("../models/star-movie");
 const StarAward = require("../models/star-award");
 const pick = require("lodash/pick");
 
-// @TODO: implement search for stars
-
 module.exports = router => {
   router.post("/star", (req, res, next) => {
     const obj = pick(req.body, [
@@ -65,12 +63,26 @@ module.exports = router => {
   router.get("/star", (req, res, next) => {
     const page = req.query.page ? +req.query.page : 1;
     const limit = req.query.limit ? +req.query.limit : 10;
-    const sortOptions = req.query.sort ? { [req.query.sort]: 1 } : {};
-    Star.find({})
+    let scoreObj = {};
+    let sortOptions = {};
+    let searchOptions = {};
+
+    if (req.query.search) {
+      sortOptions = scoreObj = { score: { $meta: "textScore" } };
+      searchOptions = {
+        $text: {
+          $search: req.query.search
+        }
+      };
+    } else if (req.query.sort) {
+      sortOptions = { [req.query.sort]: 1 };
+    }
+
+    Star.find(searchOptions, scoreObj)
       .sort(sortOptions)
       .skip(limit * page - limit)
       .limit(limit)
-      .then(stars => res.json(stars))
+      .then(movies => res.json(movies))
       .catch(next);
   });
 };

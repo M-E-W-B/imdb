@@ -1,8 +1,6 @@
 const TvSeries = require("../models/tvseries");
 const pick = require("lodash/pick");
 
-// @TODO: implement search for tvseries
-
 module.exports = router => {
   router.post("/tvseries", (req, res, next) => {
     const obj = pick(req.body, [
@@ -42,13 +40,26 @@ module.exports = router => {
   router.get("/tvseries", (req, res, next) => {
     const page = req.query.page ? +req.query.page : 1;
     const limit = req.query.limit ? +req.query.limit : 10;
-    const sortOptions = req.query.sort ? { [req.query.sort]: 1 } : {};
+    let scoreObj = {};
+    let sortOptions = {};
+    let searchOptions = {};
 
-    TvSeries.find({})
+    if (req.query.search) {
+      sortOptions = scoreObj = { score: { $meta: "textScore" } };
+      searchOptions = {
+        $text: {
+          $search: req.query.search
+        }
+      };
+    } else if (req.query.sort) {
+      sortOptions = { [req.query.sort]: 1 };
+    }
+
+    TvSeries.find(searchOptions, scoreObj)
       .sort(sortOptions)
       .skip(limit * page - limit)
       .limit(limit)
-      .then(tvseries => res.json(tvseries))
+      .then(movies => res.json(movies))
       .catch(next);
   });
 };

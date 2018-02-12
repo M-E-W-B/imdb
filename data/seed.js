@@ -323,6 +323,10 @@ db.movies.insert([
     rating: 8.1
   }
 ]);
+db.movies.createIndex(
+  { name: "text", plot: "text" },
+  { weights: { name: 3, plot: 1 } }
+);
 
 // drop the existing
 // insert then
@@ -1913,6 +1917,10 @@ db.stars.insert([
     gender: "Male"
   }
 ]);
+db.stars.createIndex(
+  { name: "text", bio: "text" },
+  { weights: { name: 3, bio: 2 } }
+);
 
 // drop the existing
 // insert then
