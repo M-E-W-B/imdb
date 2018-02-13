@@ -21,6 +21,15 @@ module.exports = router => {
       .catch(next);
   });
 
+  router.put("/award/:id", (req, res, next) => {
+    const awardId = req.params.id;
+    const obj = pick(req.body, ["name", "year", "category"]);
+
+    Award.findByIdAndUpdate(awardId, obj)
+      .then(award => res.json(award))
+      .catch(next);
+  });
+
   router.get("/award/:id", (req, res, next) => {
     const awardId = req.params.id;
 

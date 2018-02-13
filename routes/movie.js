@@ -30,6 +30,23 @@ module.exports = router => {
       .catch(next);
   });
 
+  router.put("/movie/:id", (req, res, next) => {
+    const movieId = req.params.id;
+    const obj = pick(req.body, [
+      "name",
+      "genre",
+      "plot",
+      "imageUrl",
+      "releaseDate",
+      "runtime",
+      "rating"
+    ]);
+
+    Movie.findByIdAndUpdate(movieId, obj)
+      .then(movie => res.json(movie))
+      .catch(next);
+  });
+
   router.get("/movie/:id", (req, res, next) => {
     const movieId = req.params.id;
 

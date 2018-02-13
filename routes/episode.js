@@ -27,6 +27,21 @@ module.exports = router => {
       .catch(next);
   });
 
+  router.put("/award/:id", (req, res, next) => {
+    const episodeId = req.params.id;
+    const obj = pick(req.body, [
+      "name",
+      "sequence",
+      "plot",
+      "runtime",
+      "rating"
+    ]);
+
+    Episode.findByIdAndUpdate(episodeId, obj)
+      .then(episode => res.json(episode))
+      .catch(next);
+  });
+
   router.get("/episode/:id", (req, res, next) => {
     const episodeId = req.params.id;
 

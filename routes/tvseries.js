@@ -29,6 +29,23 @@ module.exports = router => {
       .catch(next);
   });
 
+  router.put("/tvseries/:id", (req, res, next) => {
+    const tvseriesId = req.params.id;
+    const obj = pick(req.body, [
+      "name",
+      "imageUrl",
+      "yearFrom",
+      "yearTo",
+      "plot",
+      "genre",
+      "rating"
+    ]);
+
+    TvSeries.findByIdAndUpdate(tvseriesId, obj)
+      .then(tvseries => res.json(tvseries))
+      .catch(next);
+  });
+
   router.get("/tvseries/:id", (req, res, next) => {
     const tvseriesId = req.params.id;
 

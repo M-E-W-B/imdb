@@ -21,6 +21,15 @@ module.exports = router => {
       .catch(next);
   });
 
+  router.put("/season/:id", (req, res, next) => {
+    const seasonId = req.params.id;
+    const obj = pick(req.body, ["sequence", "year", "plot", "rating"]);
+
+    Season.findByIdAndUpdate(seasonId, obj)
+      .then(season => res.json(season))
+      .catch(next);
+  });
+
   router.get("/season/:id", (req, res, next) => {
     const seasonId = req.params.id;
 

@@ -30,6 +30,22 @@ module.exports = router => {
       .catch(next);
   });
 
+  router.put("/star/:id", (req, res, next) => {
+    const starId = req.params.id;
+    const obj = pick(req.body, [
+      "name",
+      "bio",
+      "imageUrl",
+      "born",
+      "profession",
+      "gender"
+    ]);
+
+    Star.findByIdAndUpdate(starId, obj)
+      .then(star => res.json(star))
+      .catch(next);
+  });
+
   router.get("/star/:id", (req, res, next) => {
     const starId = req.params.id;
 
