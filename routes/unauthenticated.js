@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const crypto = require("crypto");
 const pick = require("lodash/pick");
 const User = require("../models/user");
 const config = require("../config");
@@ -64,7 +65,7 @@ module.exports = router => {
         if (!user) {
           next(new Error("User not found."));
         } else if (user) {
-          user.resetPasswordToken = crypto.randomBytes(256).toString("hex");
+          user.resetPasswordToken = crypto.randomBytes(50).toString("hex");
           user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
           return user.save();
         }
