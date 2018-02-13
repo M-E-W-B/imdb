@@ -1,3 +1,4 @@
 module.exports = {
-  Mail: require("./mail")
+  Mail: require("./mail"),
+  MongooseConnect: require("./db")
 };
