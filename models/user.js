@@ -17,6 +17,7 @@ const userSchema = new Schema({
   phoneNumber: {
     type: Number,
     required: true,
+    unique: true,
     validate: {
       validator: function(v) {
         return /^[6789]\d{9}$/.test(v);
@@ -26,6 +27,7 @@ const userSchema = new Schema({
   email: {
     type: String,
     required: true,
+    unique: true,
     validate: {
       validator: function(v) {
         return /\S+@\S+\.\S+/.test(v);
