@@ -41,3 +41,6 @@ typings/
 
 # script to fetch data from themoviedb
 data/script.js
+
+# config.json
+config.json

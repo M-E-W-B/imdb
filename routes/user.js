@@ -18,10 +18,6 @@ module.exports = router => {
       .catch(next);
   });
 
-  // @TODO: write a separate api for
-  // 1. reset password
-  // 2. forgot password
-  // 3. change password
   router.put("/user/:id", (req, res, next) => {
     const userId = req.params.id;
     const obj = pick(req.body, ["firstName", "lastName", "phoneNumber"]);

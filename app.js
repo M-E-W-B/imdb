@@ -19,6 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // parse application/x-www-f
 app.use(methodOverride("X-HTTP-Method-Override")); // simulate PUT and DELETE
 app.use("/api/v1", router);
 
+require("./routes/unauthenticated")(router);
 require("./middlewares")(router);
 require("./routes")(router);
 
