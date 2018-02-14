@@ -27,7 +27,7 @@ module.exports = router => {
       .catch(next);
   });
 
-  router.put("/award/:id", (req, res, next) => {
+  router.put("/episode/:id", (req, res, next) => {
     const episodeId = req.params.id;
     const options = { new: true };
     const obj = pick(req.body, [

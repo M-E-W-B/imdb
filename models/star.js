@@ -12,20 +12,21 @@ const starSchema = new Schema({
     default: "https://picsum.photos/200/300/?random"
   },
   born: Date,
-  profession: [
-    {
-      type: String,
-      enum: [
-        "Actor",
-        "Director",
-        "Writer",
-        "Producer",
-        "Soundtrack",
-        "Cinematographer"
-      ],
-      required: true
+  profession: {
+    type: [String],
+    enum: [
+      "Actor",
+      "Director",
+      "Writer",
+      "Producer",
+      "Soundtrack",
+      "Cinematographer"
+    ],
+    validate: {
+      validator: arr => !!arr.length,
+      message: "Profession cannot be empty!"
     }
-  ],
+  },
   gender: {
     type: String,
     enum: ["Male", "Female"],
