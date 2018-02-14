@@ -21,7 +21,7 @@ app.use((err, req, res, next) => {
   if (process.env.NODE_ENV === "dev") {
     console.error(err.stack);
     res.json({ message: err.message });
-  } else res.json(err);
+  } else res.json(Object.keys(err).length ? err : { message: err.message });
 });
 
 module.exports = app;

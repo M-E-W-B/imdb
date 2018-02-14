@@ -10,24 +10,21 @@ const userSchema = new Schema({
   lastName: String,
   password: {
     type: String,
-    required: true,
-    min: [6, "Please choose password between 6 to 20 characters!"],
-    max: [20, "Allowed rating is from 1 till 10!"]
+    required: true
   },
   phoneNumber: {
     type: Number,
     required: true,
-    unique: true,
     validate: {
       validator: function(v) {
         return /^[6789]\d{9}$/.test(v);
-      }
+      },
+      message: "Phone no. should start with [6,7,8,9]!"
     }
   },
   email: {
     type: String,
     required: true,
-    unique: true,
     validate: {
       validator: function(v) {
         return /\S+@\S+\.\S+/.test(v);

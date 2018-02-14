@@ -44,6 +44,11 @@ module.exports = router => {
       "email"
     ]);
 
+    if (!obj.password) return next(new Error("Password is required!"));
+
+    if (obj.password.length < 6 || obj.password.length > 20)
+      return next(new Error("Only 6 to 20 character length allowed!"));
+
     const user = new User(obj);
     // store encrypted password
     user.password = user.generateHash(obj.password);

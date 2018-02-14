@@ -31,6 +31,7 @@ module.exports = router => {
   router.get("/user", (req, res, next) => {
     const page = req.query.page ? +req.query.page : 1;
     const limit = req.query.limit ? +req.query.limit : 10;
+    const sortOptions = req.query.sort ? { [req.query.sort]: 1 } : {};
 
     User.find({})
       .sort(sortOptions)
