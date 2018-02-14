@@ -2,13 +2,24 @@ const chai = require("chai");
 const chaiHttp = require("chai-http");
 const Award = require("../models/award");
 const app = require("../app");
-const should = chai.should();
+const { MongooseConnect } = require("../utils");
 
+const should = chai.should();
 const baseUrl = "/api/v1";
 
 chai.use(chaiHttp);
 
-describe("Awards", () => {
+describe("Award Routes", () => {
+  before(function(done) {
+    MongooseConnect.open()
+      .then(() => done())
+      .catch(done);
+  });
+  // after(function(done) {
+  //   MongooseConnect.close()
+  //     .then(() => done())
+  //     .catch(done);
+  // });
   beforeEach(done => {
     Award.remove({}, err => {
       done();

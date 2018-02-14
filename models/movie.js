@@ -16,35 +16,36 @@ const movieSchema = new Schema({
   },
   releaseDate: Date,
   runtime: Number,
-  genre: [
-    {
-      type: String,
-      enum: [
-        "Action",
-        "Adventure",
-        "Animation",
-        "Biography",
-        "Comedy",
-        "Crime",
-        "Documentary",
-        "Drama",
-        "Family",
-        "Fantasy",
-        "History",
-        "Horror",
-        "Music",
-        "Mystery",
-        "Romance",
-        "Sci-Fi",
-        "Short",
-        "Sports",
-        "Thriller",
-        "War",
-        "Western"
-      ],
-      required: true
+  genre: {
+    type: [String],
+    enum: [
+      "Action",
+      "Adventure",
+      "Animation",
+      "Biography",
+      "Comedy",
+      "Crime",
+      "Documentary",
+      "Drama",
+      "Family",
+      "Fantasy",
+      "History",
+      "Horror",
+      "Music",
+      "Mystery",
+      "Romance",
+      "Sci-Fi",
+      "Short",
+      "Sports",
+      "Thriller",
+      "War",
+      "Western"
+    ],
+    validate: {
+      validator: arr => !!arr.length,
+      message: "Genre cannot be empty!"
     }
-  ],
+  },
   rating: {
     type: Number,
     min: [1, "Rating can be from 1 till 10"],
