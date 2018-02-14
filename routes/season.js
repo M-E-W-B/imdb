@@ -17,15 +17,16 @@ module.exports = router => {
     const seasonId = req.params.id;
 
     Season.remove({ _id: seasonId })
-      .then(() => res.json({ message: `Season ${seasonId} deleted.` }))
+      .then(result => res.json(result))
       .catch(next);
   });
 
   router.put("/season/:id", (req, res, next) => {
     const seasonId = req.params.id;
+    const options = { new: true };
     const obj = pick(req.body, ["sequence", "year", "plot", "rating"]);
 
-    Season.findByIdAndUpdate(seasonId, obj)
+    Season.findByIdAndUpdate(seasonId, obj, options)
       .then(season => res.json(season))
       .catch(next);
   });

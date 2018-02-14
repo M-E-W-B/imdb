@@ -17,15 +17,16 @@ module.exports = router => {
     const awardId = req.params.id;
 
     Award.remove({ _id: awardId })
-      .then(() => res.json({ message: `Award ${awardId} deleted.` }))
+      .then(result => res.json(result))
       .catch(next);
   });
 
   router.put("/award/:id", (req, res, next) => {
     const awardId = req.params.id;
+    const options = { new: true };
     const obj = pick(req.body, ["name", "year", "category"]);
 
-    Award.findByIdAndUpdate(awardId, obj)
+    Award.findByIdAndUpdate(awardId, obj, options)
       .then(award => res.json(award))
       .catch(next);
   });

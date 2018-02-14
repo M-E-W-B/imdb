@@ -15,13 +15,15 @@ app.use("/api/v1", router);
 
 require("./routes/unauthenticated")(router);
 
-if (process.env.NODE_ENV !== "test") require("./middlewares")(router);
+if (process.env.NODE_ENV === "dev") require("./middlewares")(router);
 
 require("./routes")(router);
 
 app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.json({ message: err.message });
+  if (process.env.NODE_ENV === "dev") {
+    console.error(err.stack);
+    res.json({ message: err.message });
+  } else res.json(err);
 });
 
 MongooseConnect.open().then(() => {

@@ -95,9 +95,9 @@ describe("Awards", () => {
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a("object");
-          res.body.book.should.have.property("name");
-          res.body.book.should.have.property("year");
-          res.body.book.should.have.property("category");
+          res.body.should.have.property("name");
+          res.body.should.have.property("year");
+          res.body.should.have.property("category");
           done();
         });
     });
@@ -112,14 +112,14 @@ describe("Awards", () => {
       award.save((err, award) => {
         chai
           .request(app)
-          .get("/apiv1/award/" + award.id)
+          .get(baseUrl + "/award/" + award.id)
           .send(award)
           .end((err, res) => {
             res.should.have.status(200);
             res.body.should.be.a("object");
-            res.body.award.should.have.property("name");
-            res.body.award.should.have.property("year");
-            res.body.award.should.have.property("category");
+            res.body.should.have.property("name");
+            res.body.should.have.property("year");
+            res.body.should.have.property("category");
             res.body.should.have.property("_id").eql(award.id);
             done();
           });
@@ -136,7 +136,7 @@ describe("Awards", () => {
       award.save((err, award) => {
         chai
           .request(app)
-          .put("api/v1/award/" + award.id)
+          .put(baseUrl + "/award/" + award.id)
           .send({
             name: "Academy Awards",
             year: 2017,
@@ -145,7 +145,7 @@ describe("Awards", () => {
           .end((err, res) => {
             res.should.have.status(200);
             res.body.should.be.a("object");
-            res.body.book.should.have.property("category").eql("Best Actress");
+            res.body.should.have.property("category").eql("Best Actress");
             done();
           });
       });
@@ -165,8 +165,8 @@ describe("Awards", () => {
           .end((err, res) => {
             res.should.have.status(200);
             res.body.should.be.a("object");
-            res.body.result.should.have.property("ok").eql(1);
-            res.body.result.should.have.property("n").eql(1);
+            res.body.should.have.property("ok").eql(1);
+            res.body.should.have.property("n").eql(1);
             done();
           });
       });

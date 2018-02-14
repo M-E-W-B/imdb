@@ -7,7 +7,7 @@ mongoose.Promise = global.Promise;
 
 const open = () => {
   return new Promise((resolve, reject) => {
-    if (process.env.NODE_ENV !== "test") {
+    if (process.env.NODE_ENV === "test") {
       const mockgoose = new Mockgoose(mongoose);
 
       // @NOTE: https://github.com/Mockgoose/Mockgoose/issues/36

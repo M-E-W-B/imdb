@@ -26,12 +26,13 @@ module.exports = router => {
     const movieId = req.params.id;
 
     Movie.remove({ _id: movieId })
-      .then(() => res.json({ message: `Movie ${movieId} deleted.` }))
+      .then(result => res.json(result))
       .catch(next);
   });
 
   router.put("/movie/:id", (req, res, next) => {
     const movieId = req.params.id;
+    const options = { new: true };
     const obj = pick(req.body, [
       "name",
       "genre",
@@ -42,7 +43,7 @@ module.exports = router => {
       "rating"
     ]);
 
-    Movie.findByIdAndUpdate(movieId, obj)
+    Movie.findByIdAndUpdate(movieId, obj, options)
       .then(movie => res.json(movie))
       .catch(next);
   });

@@ -16,7 +16,7 @@ module.exports = router => {
     const starAwardId = req.params.id;
 
     StarAward.remove({ _id: starAwardId })
-      .then(() => res.json({ message: `StarAward ${starAwardId} deleted.` }))
+      .then(result => res.json(result))
       .catch(next);
   });
 

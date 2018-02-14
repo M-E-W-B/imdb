@@ -6,7 +6,7 @@ module.exports = router => {
     const userId = req.params.id;
 
     User.remove({ _id: userId })
-      .then(() => res.json({ message: `User ${userId} deleted.` }))
+      .then(result => res.json(result))
       .catch(next);
   });
 
@@ -20,9 +20,10 @@ module.exports = router => {
 
   router.put("/user/:id", (req, res, next) => {
     const userId = req.params.id;
+    const options = { new: true };
     const obj = pick(req.body, ["firstName", "lastName", "phoneNumber"]);
 
-    User.findByIdAndUpdate(userId, obj)
+    User.findByIdAndUpdate(userId, obj, options)
       .then(user => res.json(user))
       .catch(next);
   });

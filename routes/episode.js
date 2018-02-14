@@ -23,12 +23,13 @@ module.exports = router => {
     const episodeId = req.params.id;
 
     Episode.remove({ _id: episodeId })
-      .then(() => res.json({ message: `Episode ${episodeId} deleted.` }))
+      .then(result => res.json(result))
       .catch(next);
   });
 
   router.put("/award/:id", (req, res, next) => {
     const episodeId = req.params.id;
+    const options = { new: true };
     const obj = pick(req.body, [
       "name",
       "sequence",
@@ -37,7 +38,7 @@ module.exports = router => {
       "rating"
     ]);
 
-    Episode.findByIdAndUpdate(episodeId, obj)
+    Episode.findByIdAndUpdate(episodeId, obj, options)
       .then(episode => res.json(episode))
       .catch(next);
   });

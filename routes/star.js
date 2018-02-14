@@ -26,12 +26,13 @@ module.exports = router => {
     const starId = req.params.id;
 
     Star.remove({ _id: starId })
-      .then(() => res.json({ message: `Star ${starId} deleted.` }))
+      .then(result => res.json(result))
       .catch(next);
   });
 
   router.put("/star/:id", (req, res, next) => {
     const starId = req.params.id;
+    const options = { new: true };
     const obj = pick(req.body, [
       "name",
       "bio",
@@ -41,7 +42,7 @@ module.exports = router => {
       "gender"
     ]);
 
-    Star.findByIdAndUpdate(starId, obj)
+    Star.findByIdAndUpdate(starId, obj, options)
       .then(star => res.json(star))
       .catch(next);
   });

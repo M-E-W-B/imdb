@@ -16,9 +16,7 @@ module.exports = router => {
     const seasonEpisodeId = req.params.id;
 
     SeasonEpisode.remove({ _id: seasonEpisodeId })
-      .then(() =>
-        res.json({ message: `SeasonEpisode ${seasonEpisodeId} deleted.` })
-      )
+      .then(result => res.json(result))
       .catch(next);
   });
 

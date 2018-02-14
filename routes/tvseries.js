@@ -25,12 +25,13 @@ module.exports = router => {
     const tvseriesId = req.params.id;
 
     TvSeries.remove({ _id: tvseriesId })
-      .then(() => res.json({ message: `TvSeries ${tvseriesId} deleted.` }))
+      .then(result => res.json(result))
       .catch(next);
   });
 
   router.put("/tvseries/:id", (req, res, next) => {
     const tvseriesId = req.params.id;
+    const options = { new: true };
     const obj = pick(req.body, [
       "name",
       "imageUrl",
@@ -41,7 +42,7 @@ module.exports = router => {
       "rating"
     ]);
 
-    TvSeries.findByIdAndUpdate(tvseriesId, obj)
+    TvSeries.findByIdAndUpdate(tvseriesId, obj, options)
       .then(tvseries => res.json(tvseries))
       .catch(next);
   });

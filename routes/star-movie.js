@@ -16,7 +16,7 @@ module.exports = router => {
     const starMovieId = req.params.id;
 
     StarMovie.remove({ _id: starMovieId })
-      .then(() => res.json({ message: `StarMovie ${starMovieId} deleted.` }))
+      .then(result => res.json(result))
       .catch(next);
   });
 
