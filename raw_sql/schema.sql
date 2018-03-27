@@ -1,4 +1,6 @@
 -- Do not check foreign key constraints
+-- https://www.xaprb.com/blog/2006/08/16/how-to-build-role-based-access-control-in-sql/
+-- https://www.xaprb.com/blog/2006/08/18/role-based-access-control-in-sql-part-2/
 -- @TODO: add parent guides for a movie, episode
 
 SET FOREIGN_KEY_CHECKS=0;
