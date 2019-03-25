@@ -1,7 +1,7 @@
 -- Do not check foreign key constraints
 -- https://www.xaprb.com/blog/2006/08/16/how-to-build-role-based-access-control-in-sql/
 -- https://www.xaprb.com/blog/2006/08/18/role-based-access-control-in-sql-part-2/
--- @TODO: add parent guides for a movie, episode
+-- @TODO: check for LEFT JOINs
 
 SET FOREIGN_KEY_CHECKS=0;
 
@@ -481,6 +481,36 @@ CREATE TABLE entertainment_language (
   movie_id INT UNSIGNED NULL,
   episode_id INT UNSIGNED NULL,
   language_id INT UNSIGNED NULL,
+
+  created_by_id INT UNSIGNED NOT NULL,
+  updated_by_id INT UNSIGNED NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMP NOT NULL DEFAULT NOW() ON UPDATE NOW(),
+  deleted_at TIMESTAMP NULL,
+  PRIMARY KEY (id),
+  UNIQUE(movie_id, language_id),
+  UNIQUE(episode_id, language_id),
+  FOREIGN KEY (movie_id) REFERENCES movie(id),
+  FOREIGN KEY (episode_id) REFERENCES episode(id),
+  FOREIGN KEY (language_id) REFERENCES language(id),
+  FOREIGN KEY (created_by_id) REFERENCES user(id),
+  FOREIGN KEY (updated_by_id) REFERENCES user(id)
+);
+
+DROP TABLE IF EXISTS entertainment_parental_guides;
+CREATE TABLE entertainment_parental_guides (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  -- episode and movie
+  movie_id INT UNSIGNED NULL,
+  episode_id INT UNSIGNED NULL,
+  guide_item ENUM(
+    'Certification  Sex & Nudity',
+    'Violence & Gore',
+    'Profanity',
+    'Alcohol, Drugs & Smoking',
+    'Frightening & Intense Scenes'
+  ) NOT NULL,
+  points INT UNSIGNED NOT NULL,
 
   created_by_id INT UNSIGNED NOT NULL,
   updated_by_id INT UNSIGNED NULL,
